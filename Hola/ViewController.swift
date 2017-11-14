@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor.white
         
         
-        testWithImage(.vertical)
+        testWithImage(.horizontal)
     
     }
 
