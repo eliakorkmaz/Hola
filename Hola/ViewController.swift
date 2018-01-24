@@ -16,8 +16,8 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor.white
         
         
-//        testWithImage(.horizontal)
-        testWithView(.vertical)
+        testWithImage(.vertical)
+//        testWithView(.vertical)
     
     }
 
@@ -29,10 +29,11 @@ class ViewController: UIViewController {
         let _image1: UIImage = UIImage(named:"image1")!
         let _image2: UIImage = UIImage(named:"image2")!
         let _image3: UIImage = UIImage(named:"image3")!
+        let _image4: UIImage = UIImage(named:"image2")!
         
-        let imageArray: [UIImage] = [_image1,_image2,_image3]
+        let imageArray: [UIImage] = [_image1,_image2,_image3,_image4]
         
-        let sss: Hola = Hola(frame: CGRect(), imageArray: imageArray, rotation)
+        let sss: Hola = Hola(frame: CGRect(), imageArray: imageArray, rotation);
         sss.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         view.addSubview(sss)
     }
