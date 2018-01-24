@@ -4,6 +4,7 @@
 
 ## Build generated
 build/
+*.xcodeproj/
 DerivedData/
 
 ## Various settings
@@ -67,7 +68,4 @@ fastlane/screenshots
 fastlane/test_output
 
 
-# Discard the xcodeproj folder 
-
-Hola.xcodeproj/
 
