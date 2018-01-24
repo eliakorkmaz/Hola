@@ -69,5 +69,5 @@ fastlane/test_output
 
 # Discard the xcodeproj folder 
 
-/Hola.xcodeproj
+Hola.xcodeproj/
 
