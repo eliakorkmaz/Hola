@@ -4,7 +4,6 @@
 
 ## Build generated
 build/
-*.xcodeproj/
 DerivedData/
 
 ## Various settings
@@ -40,6 +39,8 @@ playground.xcworkspace
 # Package.pins
 .build/
 
+*.xcodeproj/*
+
 # CocoaPods
 #
 # We recommend against adding the Pods directory to your .gitignore. However
@@ -66,6 +67,43 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+Icon
+._*
+
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+build/
+DerivedData
+
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+
+*.xccheckout
+*.moved-aside
+*.xcuserstate
 
 
 
