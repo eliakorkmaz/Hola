@@ -65,3 +65,9 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
+
+
+# Discard the xcodeproj folder 
+
+Hola.xcodeproj
+
