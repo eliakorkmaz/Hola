@@ -17,13 +17,22 @@ public enum rotationWay {
 class Hola: UIView{
     
     private var _rotation: rotationWay!
+    private var _count: Int!
+    /*
+        this count variable is added for binding between scrollViewDidScroll functions and limit of page.
+     If there have 3 page, Hola has provide to scroll just between 0 and 3 section.
+     */
+    
     
     var scrollView: UIScrollView!
     var pageControl: UIPageControl!
     
-    
     // init function that represent Hola with view
     public init(frame: CGRect, viewArray uiviewArray:[UIView], _ rotation: rotationWay) {
+        
+        // set the count before the init cause that otherwise return nil when detect scrolling
+        
+        self._count = uiviewArray.count
         
         super.init(frame: frame)
         
@@ -31,6 +40,8 @@ class Hola: UIView{
         self._rotation = rotation
         
         let count:Int = uiviewArray.count
+        
+        self._count = uiviewArray.count;
         
         scrollView = UIScrollView()
         
@@ -128,10 +139,12 @@ class Hola: UIView{
     // init function that represent Hola with images
     public init(frame: CGRect, imageArray uiimageArray:[UIImage],_ rotation: rotationWay ){
         
+        self._count  = uiimageArray.count;
+        
         super.init(frame: frame)
         
         self._rotation = rotation
-        
+    
         let count:Int = uiimageArray.count
         
         scrollView = UIScrollView()
@@ -146,7 +159,7 @@ class Hola: UIView{
         switch rotation {
         
         case .horizontal:
-        
+            
             scrollView.contentSize = CGSize(width: Int(UIScreen.main.bounds.width)*count, height: 0)
             
             scrollView.showsHorizontalScrollIndicator = false
@@ -273,28 +286,29 @@ extension Hola: UIScrollViewDelegate{
         // its forbidden to scroll to negative offset or upper offset of biggest offset limit.
         
         let rotation: rotationWay = _rotation!
+        let count: Int = _count!
         
+    
         switch rotation {
         
         case .horizontal:
-        
             if scrollView.contentOffset.x <= 0{
-            
+                
                 scrollView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: false)
            
-            }else if scrollView.contentOffset.x >= UIScreen.main.bounds.width*CGFloat(2){
-            
-                scrollView.setContentOffset(CGPoint.init(x: Int(UIScreen.main.bounds.width)*2, y: 0), animated: false)
+            }else if scrollView.contentOffset.x >= UIScreen.main.bounds.width*CGFloat(count-1){
+                
+                scrollView.setContentOffset(CGPoint.init(x: Int(UIScreen.main.bounds.width)*(count-1), y: 0), animated: false)
+                
             }
         case .vertical:
-            
             if scrollView.contentOffset.y <= 0{
             
                 scrollView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: false)
             
-            }else if scrollView.contentOffset.y >= UIScreen.main.bounds.height*CGFloat(2){
+            }else if scrollView.contentOffset.y >= UIScreen.main.bounds.height*CGFloat(count-1){
             
-                scrollView.setContentOffset(CGPoint.init(x: 0, y: Int(UIScreen.main.bounds.height)*2), animated: false)
+                scrollView.setContentOffset(CGPoint.init(x: 0, y: Int(UIScreen.main.bounds.height)*(count-1)), animated: false)
             
             }
         }
