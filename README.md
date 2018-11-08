@@ -22,8 +22,6 @@ public init(frame: CGRect, viewArray uiviewArray:[UIView], _ rotation: rotationW
 ```
 If you build pager with array of `UIView` you should use this `init` function.
 
-Simple `usage` of it.
-```swift
 let simple: Hola = Hola(frame: CGRect(), viewArray: viewArray, .horizontal)
 ```
 
@@ -73,6 +71,9 @@ Feel free to contribute anything on this with describing contributed part
 ### Todos
 - Some transaction animations
 - Feel free to play with repo.
+
+### Cons
+- The main cons of the Hola is that using the UIScrollView. If you use 1000 image for the this UIScrollView, the app wants to all image on memory, so thats not practible. If you build such a tool with UICollectionView, it will handle the photos with lazy loading, so just some of images will be load into memory which is currently showing to the user on the screen. The main difference and disadvantage of it is about not memory friendly.
 
 ## License
 *MIT*
