@@ -36,102 +36,9 @@ class Hola: UIView{
         
         super.init(frame: frame)
         
-        // set the rotation
-        self._rotation = rotation
-        
-        let count:Int = uiviewArray.count
-        
-        self._count = uiviewArray.count;
-        
-        scrollView = UIScrollView()
-        
-        scrollView.frame = CGRect(x: 0, y: 0, width: Int(UIScreen.main.bounds.width), height: Int(UIScreen.main.bounds.height))
-        
-        scrollView.backgroundColor = UIColor.clear
-        
-        scrollView.isPagingEnabled = true
-        
-        // setting scroll view contentsize for given direction
-        switch rotation {
-        
-        case .horizontal:
-        
-            scrollView.contentSize = CGSize(width: Int(UIScreen.main.bounds.width)*count, height: 0)
-            
-            scrollView.showsHorizontalScrollIndicator = false
-        
-        case .vertical:
-            
-            scrollView.contentSize = CGSize(width: 0, height: Int(UIScreen.main.bounds.height)*count)
-            
-            scrollView.showsVerticalScrollIndicator = false
-        }
-        
-        scrollView.delegate = self
-        
-        // settings up pagecontrol
-        switch rotation {
-        
-        case .vertical:
-            
-            pageControl = UIPageControl(frame: CGRect(x: UIScreen.main.bounds.width-50-UIScreen.main.bounds.width/2 , y: 0, width: 50, height: 20))
-            
-            pageControl.transform = pageControl.transform.rotated(by: .pi/2)
-            
-            pageControl.center.y = scrollView.center.y
-       
-        case .horizontal:
-           
-            pageControl = UIPageControl(frame: CGRect(x: 0, y: UIScreen.main.bounds.height-50, width: 100, height: 20))
-            
-            pageControl.center.x = self.center.x
-        }
-        
-        self.attributesForPageControl(pageControl,count)
-        
-        self.addSubview(pageControl)
-        
-        var viewArray: [UIView?] = [UIView?].init(repeating: nil, count: count)
-        
-        // initialize and setting up frame the uiviews with every view of viewArray
-        for i in 0...count-1 {
-            
-            viewArray[i] = UIView()
-    
-            switch rotation{
-    
-            case .horizontal:
-            
-                viewArray[i]?.frame = CGRect(x: pageToFloatHorizontal(i), y: 0, width: getWidth(), height: getHeight())
+        builder(uiviewArray.count, rotation)
                 
-                uiviewArray[i].frame.origin = CGPoint(x: pageToFloatHorizontal(i), y: 0)
-            
-            case .vertical:
-            
-                viewArray[i]?.frame = CGRect(x: 0, y: pageToFloatVertical(i), width: getWidth(), height: getHeight())
-                
-                uiviewArray[i].frame.origin = CGPoint(x: 0, y: pageToFloatVertical(i))
-            }
-            
-            viewArray[i]! = uiviewArray[i]
-            
-            scrollView.addSubview(viewArray[i]!)
-        }
-        
-        
-        self.addSubview(scrollView)
-       
-        switch rotation {
-        
-        case .vertical:
-        
-            scrollView.setContentOffset(CGPoint.init(x: 0, y: 20), animated: false)
-            
-            scrollView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: false)
-        
-        default:
-            break
-        }
+        insertViewElements(uiviewArray, rotation)
         
     }
     
@@ -143,97 +50,9 @@ class Hola: UIView{
         
         super.init(frame: frame)
         
-        self._rotation = rotation
-    
-        let count:Int = uiimageArray.count
-        
-        scrollView = UIScrollView()
-        
-        scrollView.frame = CGRect(x: 0, y: 0, width: Int(UIScreen.main.bounds.width), height: Int(UIScreen.main.bounds.height))
-        
-        scrollView.backgroundColor = UIColor.clear
-        
-        scrollView.isPagingEnabled = true
-        
-        // setting scroll view contentsize for given direction
-        switch rotation {
-        
-        case .horizontal:
-            
-            scrollView.contentSize = CGSize(width: Int(UIScreen.main.bounds.width)*count, height: 0)
-            
-            scrollView.showsHorizontalScrollIndicator = false
-        
-        case .vertical:
-        
-            scrollView.contentSize = CGSize(width: 0, height: Int(UIScreen.main.bounds.height)*count)
-            
-            scrollView.showsVerticalScrollIndicator = false
-        }
-        
-        
-        scrollView.delegate = self
-        
-        // settings up pagecontrol
-        switch rotation {
-        
-        case .vertical:
-        
-            pageControl = UIPageControl(frame: CGRect(x: UIScreen.main.bounds.width-50-UIScreen.main.bounds.width/2 , y: 0, width: 50, height: 20))
-            
-            // transform the pageControl for vertical position
-            pageControl.transform = pageControl.transform.rotated(by: .pi/2)
-            
-            pageControl.center.y = scrollView.center.y
-        case .horizontal:
-        
-            pageControl = UIPageControl(frame: CGRect(x: 0, y: UIScreen.main.bounds.height-50, width: 100, height: 20))
-            
-            pageControl.center.x = self.center.x
-        }
-        
-        
-        self.attributesForPageControl(pageControl,count)
-
-        self.addSubview(pageControl)
-        
-        var imageViewArray: [UIImageView?] = [UIImageView?].init(repeating: nil, count: count)
-        
-        // initialize and setting up frame the uiviews with every view of viewArray
-        for i in 0...count-1 {
-            
-            imageViewArray[i] = UIImageView()
-    
-            switch rotation{
-            
-            case .horizontal:
-            
-                imageViewArray[i]?.frame = CGRect(x: pageToFloatHorizontal(i), y: 0, width: getWidth(), height: getHeight())
-           
-            case .vertical:
-            
-                imageViewArray[i]?.frame = CGRect(x: 0, y: pageToFloatVertical(i), width: getWidth(), height: getHeight())
-            }
-            
-            imageViewArray[i]?.image = (uiimageArray[i])
-            
-            scrollView.addSubview(imageViewArray[i]!)
-        }
-        
-        self.addSubview(scrollView)
-        
-        switch rotation {
-        
-        case .vertical:
-        
-            scrollView.setContentOffset(CGPoint.init(x: 0, y: 20), animated: false)
-            
-            scrollView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: false)
-        
-        default:
-            break
-        }
-        
+        builder(uiimageArray.count, rotation)
+                
+        insertImageElements(uiimageArray, rotation)
         
     }
     
@@ -271,7 +90,157 @@ class Hola: UIView{
     fileprivate func getHeight() -> CGFloat{
         return UIScreen.main.bounds.height
     }
+        
+    func prepareImagesForStoryboard(uiimageArray: [UIImage], rotation: rotationWay){
+        builder(uiimageArray.count, rotation)
+        
+        insertImageElements(uiimageArray, rotation)
+    }
     
+    func prepareViewsForStoryboard(viewArray: [UIView], rotation: rotationWay){
+        builder(viewArray.count, rotation)
+        
+        insertViewElements(viewArray, rotation)
+    }
+    
+    private func insertImageElements(_ elements: [UIImage], _ rotation: rotationWay){
+        
+        var imageViewArray: [UIImageView?] = [UIImageView?].init(repeating: nil, count: elements.count)
+        
+        // initialize and setting up frame the uiviews with every view of viewArray
+        for i in 0...elements.count-1 {
+
+            imageViewArray[i] = UIImageView()
+
+            switch rotation{
+
+            case .horizontal:
+
+                imageViewArray[i]?.frame = CGRect(x: pageToFloatHorizontal(i), y: 0, width: getWidth(), height: getHeight())
+
+            case .vertical:
+
+                imageViewArray[i]?.frame = CGRect(x: 0, y: pageToFloatVertical(i), width: getWidth(), height: getHeight())
+            }
+
+            imageViewArray[i]?.image = (elements[i])
+
+            scrollView.addSubview(imageViewArray[i]!)
+        }
+    }
+    
+    private func insertViewElements(_ elements: [UIView], _ rotation: rotationWay){
+        var viewArray: [UIView?] = [UIView?].init(repeating: nil, count: elements.count)
+            
+            // initialize and setting up frame the uiviews with every view of viewArray
+            for i in 0...elements.count-1 {
+                
+                viewArray[i] = UIView()
+        
+                switch rotation{
+        
+                case .horizontal:
+                
+                    viewArray[i]?.frame = CGRect(x: pageToFloatHorizontal(i), y: 0, width: getWidth(), height: getHeight())
+                    
+                    elements[i].frame.origin = CGPoint(x: pageToFloatHorizontal(i), y: 0)
+                
+                case .vertical:
+                
+                    viewArray[i]?.frame = CGRect(x: 0, y: pageToFloatVertical(i), width: getWidth(), height: getHeight())
+                    
+                    elements[i].frame.origin = CGPoint(x: 0, y: pageToFloatVertical(i))
+                }
+                
+                viewArray[i]! = elements[i]
+                
+                scrollView.addSubview(viewArray[i]!)
+            }
+
+    }
+    
+    private func builder(_ count: Int, _ rotation: rotationWay){
+        self._count = count
+            
+        self._rotation = rotation
+    
+        scrollView = UIScrollView()
+        
+        scrollView.frame = CGRect(x: 0, y: 0, width: Int(UIScreen.main.bounds.width), height: Int(UIScreen.main.bounds.height))
+        
+        scrollView.backgroundColor = UIColor.clear
+        
+        scrollView.isPagingEnabled = true
+        
+        // setting scroll view contentsize for given direction
+        switch rotation {
+        
+        case .horizontal:
+            
+            scrollView.contentSize = CGSize(width: Int(UIScreen.main.bounds.width)*count, height: 0)
+            
+            scrollView.showsHorizontalScrollIndicator = false
+        
+        case .vertical:
+        
+            scrollView.contentSize = CGSize(width: 0, height: Int(UIScreen.main.bounds.height)*count)
+            
+            scrollView.showsVerticalScrollIndicator = false
+        }
+        
+        
+        scrollView.delegate = self
+         
+        // settings up pagecontrol
+        pageControl = UIPageControl()
+        
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        
+        switch rotation {
+
+        case .vertical:
+            
+            pageControl.transform = CGAffineTransform(rotationAngle: .pi / 2)
+                                    
+        default:
+            
+            break
+        }
+        
+        
+        self.addSubview(pageControl)
+        
+        self.attributesForPageControl(pageControl,count)
+        
+        self.addSubview(scrollView)
+        
+        switch rotation {
+        
+        case .vertical:
+            
+            scrollView.setContentOffset(CGPoint.init(x: 0, y: 20), animated: false)
+            
+            scrollView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: false)
+            
+            pageControl.heightAnchor.constraint(equalToConstant: 100).isActive = true
+            
+            pageControl.widthAnchor.constraint(equalToConstant: 25).isActive = true
+            
+            pageControl.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -3).isActive = true
+             
+            pageControl.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+                
+        case .horizontal:
+
+            pageControl.heightAnchor.constraint(equalToConstant: 25).isActive = true
+            
+            pageControl.widthAnchor.constraint(equalToConstant: 100).isActive = true
+            
+            pageControl.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+             
+            pageControl.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -50).isActive = true
+        }
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
